@@ -1,0 +1,2583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANALYTIX | Data Science & Analytics Club - MVJ College of Engineering</title>
+    <meta name="description" content="ANALYTIX is the premier Data Science, Analytics, Design, and Media Club at MVJ College of Engineering. Turn Data Into Direction through workshops, hackathons, and real-world projects.">
+    
+    <!-- Bootstrap 5 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Embedded Single-File CSS Design System & Parallax Rules -->
+    <style>
+        :root {
+            --bg-dark: #07090E;
+            --bg-surface: #0E131F;
+            --bg-card: #141B2D;
+            --bg-card-hover: #1C263F;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --border-highlight: rgba(59, 130, 246, 0.3);
+            
+            --accent-blue: #3B82F6;
+            --accent-indigo: #6366F1;
+            --accent-cyan: #06B6D4;
+            --accent-violet: #8B5CF6;
+            --accent-gold: #F59E0B;
+
+            --text-primary: #F8FAFC;
+            --text-secondary: #94A3B8;
+            --text-muted: #64748B;
+            
+            --font-heading: 'Space Grotesk', sans-serif;
+            --font-body: 'Outfit', sans-serif;
+
+            --navbar-height: 80px;
+            --radius-sm: 8px;
+            --radius-md: 14px;
+            --radius-lg: 20px;
+            
+            --shadow-glow: 0 0 25px rgba(59, 130, 246, 0.15);
+            --shadow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            overflow-x: hidden;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-blue);
+        }
+
+        /* Headings */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-heading);
+            color: var(--text-primary);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition-smooth);
+        }
+
+        ::selection {
+            background: rgba(59, 130, 246, 0.3);
+            color: #fff;
+        }
+
+        /* ==========================================================================
+           PARALLAX ENGINE CORE & BACKGROUND LAYERS
+           ========================================================================== */
+
+        .parallax-container {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        /* Disable CSS transform transitions on parallax target elements to eliminate scroll lag & stutter */
+        [data-parallax-speed],
+        .parallax-layer,
+        .parallax-grid-overlay,
+        .parallax-shape,
+        .glow-orb {
+            transition: opacity 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease !important;
+            will-change: transform;
+        }
+
+        /* Fixed background grid */
+        .bg-grid-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Section-Specific Parallax Layer Backgrounds */
+        .section-parallax-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .parallax-grid-overlay {
+            position: absolute;
+            width: 150%;
+            height: 180%;
+            top: -40%;
+            left: -25%;
+            background-image: radial-gradient(rgba(59, 130, 246, 0.35) 2px, transparent 2px);
+            background-size: 36px 36px;
+            pointer-events: none;
+            opacity: 0.85;
+            will-change: transform;
+        }
+
+        .parallax-shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(75px);
+            opacity: 0.22;
+            pointer-events: none;
+            will-change: transform;
+        }
+
+        .parallax-shape-blue {
+            width: 400px;
+            height: 400px;
+            background: var(--accent-blue);
+        }
+
+        .parallax-shape-violet {
+            width: 360px;
+            height: 360px;
+            background: var(--accent-violet);
+        }
+
+        .parallax-shape-cyan {
+            width: 320px;
+            height: 320px;
+            background: var(--accent-cyan);
+        }
+
+        /* Ambient glow blobs - Fixed positioning to float continuously across the entire viewport */
+        .glow-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.25;
+            pointer-events: none;
+            z-index: 0;
+            will-change: transform;
+        }
+
+        .glow-orb-blue {
+            width: 450px;
+            height: 450px;
+            background: var(--accent-blue);
+        }
+
+        .glow-orb-indigo {
+            width: 500px;
+            height: 500px;
+            background: var(--accent-indigo);
+        }
+
+        .glow-orb-violet {
+            width: 400px;
+            height: 400px;
+            background: var(--accent-violet);
+        }
+
+        .parallax-layer {
+            will-change: transform;
+        }
+
+        /* ==========================================================================
+           UTILITY COMPONENTS & TYPOGRAPHY
+           ========================================================================== */
+
+        .section-padding {
+            padding: 100px 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .badge-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 0.825rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--accent-blue);
+            border: 1px solid rgba(59, 130, 246, 0.25);
+        }
+
+        .badge-violet {
+            background: rgba(139, 92, 246, 0.1);
+            color: var(--accent-violet);
+            border-color: rgba(139, 92, 246, 0.25);
+        }
+
+        .badge-cyan {
+            background: rgba(6, 182, 212, 0.1);
+            color: var(--accent-cyan);
+            border-color: rgba(6, 182, 212, 0.25);
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 2.75rem);
+            margin-top: 12px;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            max-width: 680px;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue), var(--accent-indigo));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .glass-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 28px;
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-card:hover {
+            border-color: var(--border-highlight);
+            box-shadow: var(--shadow-glow);
+            transform: translateY(-4px);
+            background: var(--bg-card-hover);
+        }
+
+        .btn-primary-glow {
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-indigo));
+            color: #ffffff !important;
+            font-weight: 600;
+            padding: 12px 28px;
+            border-radius: 30px;
+            border: none;
+            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.35);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition-smooth);
+        }
+
+        .btn-primary-glow:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(59, 130, 246, 0.5);
+            color: #fff;
+        }
+
+        .btn-outline-glow {
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--text-primary) !important;
+            font-weight: 600;
+            padding: 12px 28px;
+            border-radius: 30px;
+            border: 1px solid var(--border-color);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition-smooth);
+        }
+
+        .btn-outline-glow:hover {
+            border-color: var(--accent-blue);
+            background: rgba(59, 130, 246, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* ==========================================================================
+           NAVIGATION BAR & LOGO STYLING
+           ========================================================================== */
+
+        .navbar-analytix {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--navbar-height);
+            z-index: 1030;
+            transition: var(--transition-smooth);
+            background: rgba(7, 9, 14, 0.4);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid transparent;
+        }
+
+        .navbar-analytix.scrolled {
+            background: rgba(14, 19, 31, 0.92);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .navbar-brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: var(--font-heading);
+            font-size: 1.35rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            color: #fff;
+        }
+
+        .brand-logo-img {
+            height: 46px;
+            width: auto;
+            max-width: 200px;
+            object-fit: contain;
+            display: inline-block;
+        }
+
+        .hero-logo-img {
+            height: 140px;
+            width: auto;
+            max-width: 420px;
+            object-fit: contain;
+            display: inline-block;
+            margin-bottom: 24px;
+            filter: drop-shadow(0 0 20px rgba(99, 102, 241, 0.25));
+        }
+
+        .footer-logo-img {
+            height: 52px;
+            width: auto;
+            max-width: 220px;
+            object-fit: contain;
+            display: inline-block;
+        }
+
+        .nav-link {
+            color: var(--text-secondary) !important;
+            font-weight: 500;
+            font-size: 0.925rem;
+            padding: 8px 12px !important;
+            transition: var(--transition-smooth);
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--accent-blue) !important;
+        }
+
+        .navbar-toggler {
+            border: 1px solid var(--border-color);
+            color: #fff;
+            padding: 6px 12px;
+        }
+
+        .navbar-toggler:focus {
+            box-shadow: none;
+        }
+
+        /* ==========================================================================
+           HERO SECTION
+           ========================================================================== */
+
+        .hero-section {
+            min-height: 100vh;
+            padding-top: calc(var(--navbar-height) + 40px);
+            padding-bottom: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+
+        .hero-bg-layer {
+            position: absolute;
+            top: -20%;
+            left: -10%;
+            width: 120%;
+            height: 140%;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+            will-change: transform;
+        }
+
+        .hero-bg-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.22;
+            filter: saturate(1.2) contrast(1.1);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            line-height: 1.08;
+            margin-bottom: 24px;
+            letter-spacing: -0.03em;
+        }
+
+        .hero-lead {
+            font-size: clamp(1.1rem, 2vw, 1.35rem);
+            color: var(--text-secondary);
+            max-width: 640px;
+            margin-bottom: 36px;
+        }
+
+        .stats-strip {
+            margin-top: 60px;
+            background: rgba(20, 27, 45, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+        }
+
+        .stat-box {
+            text-align: center;
+            padding: 12px;
+        }
+
+        .stat-number {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 3.5vw, 2.75rem);
+            font-weight: 700;
+            color: #fff;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 500;
+        }
+
+        /* ==========================================================================
+           ABOUT SECTION
+           ========================================================================== */
+
+        .about-card {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .feature-icon-box {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--accent-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        /* ==========================================================================
+           DEPARTMENTS SECTION
+           ========================================================================== */
+
+        .dept-card {
+            position: relative;
+            border-top: 3px solid var(--accent-blue);
+        }
+
+        .dept-card-design {
+            border-top-color: var(--accent-violet);
+        }
+
+        .dept-card-moc {
+            border-top-color: var(--accent-cyan);
+        }
+
+        .dept-poc-pill {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255, 255, 255, 0.04);
+            padding: 8px 14px;
+            border-radius: 30px;
+            border: 1px solid var(--border-color);
+            margin-top: 16px;
+        }
+
+        .poc-avatar {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: var(--accent-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: #fff;
+        }
+
+        .skill-tag {
+            font-size: 0.775rem;
+            padding: 4px 10px;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            display: inline-block;
+            margin-right: 4px;
+            margin-bottom: 6px;
+        }
+
+        /* ==========================================================================
+           SENIOR MEMBERS & LEADERSHIP HIERARCHY
+           ========================================================================== */
+
+        .leadership-tier {
+            margin-bottom: 50px;
+        }
+
+        .tier-title {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 12px;
+            margin-bottom: 28px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .member-card {
+            text-align: center;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 28px 20px;
+            transition: var(--transition-smooth);
+        }
+
+        .member-card:hover {
+            border-color: var(--accent-blue);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .member-card-leader {
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            background: linear-gradient(180deg, rgba(245, 158, 11, 0.05) 0%, var(--bg-surface) 100%);
+        }
+
+        .member-card-leader:hover {
+            border-color: var(--accent-gold);
+        }
+
+        .member-avatar {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            margin: 0 auto 16px;
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            border: 2px solid var(--accent-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--accent-blue);
+            overflow: hidden;
+        }
+
+        .member-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .member-name {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .member-role {
+            font-size: 0.85rem;
+            color: var(--accent-blue);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .member-bio {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .member-socials {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .social-icon-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            transition: var(--transition-smooth);
+        }
+
+        .social-icon-btn:hover {
+            background: var(--accent-blue);
+            color: #fff;
+        }
+
+        /* ==========================================================================
+           ACHIEVEMENTS & PROJECTS SHOWCASE
+           ========================================================================== */
+
+        .achievement-card {
+            height: 100%;
+        }
+
+        .achievement-meta {
+            font-size: 0.825rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        /* ==========================================================================
+           INTERACTIVE LEADERBOARD
+           ========================================================================== */
+
+        .podium-container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 16px;
+            margin-bottom: 40px;
+            padding: 20px 0;
+        }
+
+        .podium-card {
+            text-align: center;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 20px 14px;
+            width: 30%;
+            max-width: 180px;
+            position: relative;
+            transition: var(--transition-smooth);
+        }
+
+        .podium-1 {
+            order: 2;
+            border-color: rgba(245, 158, 11, 0.5);
+            background: linear-gradient(180deg, rgba(245, 158, 11, 0.1) 0%, var(--bg-surface) 100%);
+            transform: translateY(-15px);
+        }
+
+        .podium-2 {
+            order: 1;
+            border-color: rgba(148, 163, 184, 0.4);
+        }
+
+        .podium-3 {
+            order: 3;
+            border-color: rgba(217, 119, 6, 0.4);
+        }
+
+        .podium-rank {
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--accent-blue);
+            color: #fff;
+            font-weight: 700;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .podium-1 .podium-rank { background: var(--accent-gold); }
+        .podium-2 .podium-rank { background: #94a3b8; }
+        .podium-3 .podium-rank { background: #b45309; }
+
+        .leaderboard-table-wrapper {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+        }
+
+        .table-dark-custom {
+            width: 100%;
+            color: var(--text-primary);
+            border-collapse: collapse;
+            margin-bottom: 0;
+        }
+
+        .table-dark-custom th {
+            background: rgba(255, 255, 255, 0.02);
+            padding: 16px 20px;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .table-dark-custom td {
+            padding: 16px 20px;
+            vertical-align: middle;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            font-size: 0.95rem;
+        }
+
+        .table-dark-custom tr:hover {
+            background: rgba(59, 130, 246, 0.04);
+        }
+
+        /* ==========================================================================
+           EVENTS & COMPETITIONS
+           ========================================================================== */
+
+        .filter-btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 30px;
+        }
+
+        .btn-filter {
+            padding: 8px 18px;
+            border-radius: 30px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: var(--transition-smooth);
+        }
+
+        .btn-filter.active, .btn-filter:hover {
+            background: var(--accent-blue);
+            color: #fff;
+            border-color: var(--accent-blue);
+        }
+
+        .event-card {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .event-status-badge {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            border-radius: 4px;
+        }
+
+        .status-upcoming {
+            background: rgba(16, 185, 129, 0.15);
+            color: #10B981;
+        }
+
+        .status-ongoing {
+            background: rgba(59, 130, 246, 0.15);
+            color: #3B82F6;
+        }
+
+        .status-completed {
+            background: rgba(148, 163, 184, 0.15);
+            color: #94A3B8;
+        }
+
+        /* ==========================================================================
+           WORKSHOPS & DATASETS
+           ========================================================================== */
+
+        .challenge-card {
+            border-left: 4px solid var(--accent-indigo);
+        }
+
+        .dataset-link-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.85rem;
+            color: var(--accent-cyan);
+            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: 6px;
+            background: rgba(6, 182, 212, 0.08);
+            border: 1px solid rgba(6, 182, 212, 0.2);
+            transition: var(--transition-smooth);
+        }
+
+        .dataset-link-btn:hover {
+            background: rgba(6, 182, 212, 0.2);
+            color: #fff;
+        }
+
+        /* ==========================================================================
+           ALUMNI & MEMBERSHIP FORM
+           ========================================================================== */
+
+        .alumni-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .form-control-custom, .form-select-custom {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            color: var(--text-primary);
+            padding: 12px 16px;
+            font-size: 0.95rem;
+            transition: var(--transition-smooth);
+        }
+
+        .form-control-custom:focus, .form-select-custom:focus {
+            background: var(--bg-card-hover);
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.2);
+            color: #fff;
+            outline: none;
+        }
+
+        .form-select-custom option {
+            background: var(--bg-card);
+            color: #fff;
+        }
+
+        .form-label-custom {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        /* ==========================================================================
+           MODALS & FOOTER
+           ========================================================================== */
+
+        .modal-content-custom {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            color: var(--text-primary);
+        }
+
+        .modal-header-custom {
+            border-bottom: 1px solid var(--border-color);
+            padding: 20px 24px;
+        }
+
+        .modal-footer-custom {
+            border-top: 1px solid var(--border-color);
+            padding: 16px 24px;
+        }
+
+        .btn-close-white-custom {
+            filter: invert(1) grayscale(100%) brightness(200%);
+        }
+
+        .footer-analytix {
+            background: #040609;
+            border-top: 1px solid var(--border-color);
+            padding: 60px 0 30px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer-brand {
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .footer-link {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .footer-link:hover {
+            color: var(--accent-blue);
+            transform: translateX(4px);
+        }
+
+        .back-to-top-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--accent-blue);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            z-index: 99;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition-smooth);
+            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
+            border: none;
+        }
+
+        .back-to-top-btn.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top-btn:hover {
+            transform: translateY(-4px);
+            background: var(--accent-indigo);
+        }
+
+        /* Scroll Reveals */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 991.98px) {
+            .navbar-collapse {
+                background: var(--bg-surface);
+                border: 1px solid var(--border-color);
+                padding: 20px;
+                border-radius: var(--radius-md);
+                margin-top: 10px;
+            }
+            .hero-title {
+                font-size: 2.75rem;
+            }
+            .podium-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            .podium-card {
+                width: 100%;
+                max-width: 300px;
+                transform: none !important;
+                order: initial !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Ambient Grid & Glow Orbs for Continuous Parallax -->
+    <div class="bg-grid-pattern"></div>
+    <div class="glow-orb glow-orb-blue" style="top: 10%; left: -80px;"></div>
+    <div class="glow-orb glow-orb-indigo" style="top: 40%; right: -100px;"></div>
+    <div class="glow-orb glow-orb-violet" style="top: 70%; left: -80px;"></div>
+
+    <!-- ==========================================================================
+         FIXED RESPONSIVE NAVBAR
+         ========================================================================== -->
+    <nav class="navbar navbar-expand-lg navbar-analytix" id="mainNavbar">
+        <div class="container-fluid px-lg-5">
+            <a class="navbar-brand-logo" href="#hero">
+                <img src="assets/images/logo.png" alt="ANALYTIX Logo" class="brand-logo-img">
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="bi bi-list fs-2"></i>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link active" href="#hero">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#departments">Departments</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#leadership">Leadership</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#achievements">Achievements</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#leaderboard">Leaderboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#events">Events</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#workshops">Workshops</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#alumni">Alumni</a></li>
+                </ul>
+                <div class="d-flex align-items-center gap-3">
+                    <a href="https://www.instagram.com/analytixmvjce?dlrf=MWZ4ZjUwYnRjbzU3NA==" target="_blank" rel="noopener noreferrer" class="btn btn-outline-glow btn-sm d-none d-xl-inline-flex" title="Follow ANALYTIX on Instagram">
+                        <i class="bi bi-instagram text-danger"></i> Instagram
+                    </a>
+                    <a href="#join" class="btn btn-primary-glow btn-sm">
+                        <i class="bi bi-lightning-charge-fill me-1"></i> Join Us
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="parallax-container">
+        
+        <!-- ==========================================================================
+             HERO SECTION
+             ========================================================================== -->
+        <section id="hero" class="hero-section position-relative">
+            <div class="section-parallax-bg">
+                <div class="parallax-grid-overlay"></div>
+                <div class="parallax-shape parallax-shape-blue" style="top: 10%; right: 5%;" data-parallax-speed="0.45"></div>
+            </div>
+            
+            <div class="hero-bg-layer parallax-layer" data-parallax-speed="0.45">
+                <img src="assets/images/hero_bg.jpg" alt="Data Science Network Graphic" class="hero-bg-img" onerror="this.style.display='none'">
+            </div>
+            
+            <div class="container hero-content text-center text-lg-start">
+                <div class="row align-items-center">
+                    <div class="col-lg-8" data-parallax-speed="0.12">
+                        <div class="reveal">
+                            <div class="mb-3">
+                                <img src="assets/images/logo.png" alt="ANALYTIX Club Logo" class="hero-logo-img">
+                            </div>
+                            <span class="badge-tag mb-3"><i class="bi bi-award-fill"></i> MVJ College of Engineering</span>
+                            <h1 class="hero-title">
+                                TURN DATA INTO <span class="gradient-text">DIRECTION.</span>
+                            </h1>
+                            <p class="hero-lead">
+                                Explore ideas. Build projects. Solve real-world problems. Compete, collaborate, and turn analytics knowledge into impactful engineering solutions.
+                            </p>
+                            <div class="d-flex flex-wrap gap-3 justify-content-center justify-content-lg-start align-items-center">
+                                <a href="#departments" class="btn btn-primary-glow">
+                                    EXPLORE ANALYTIX <i class="bi bi-arrow-right"></i>
+                                </a>
+                                <a href="#join" class="btn btn-outline-glow">
+                                    JOIN THE CLUB
+                                </a>
+                                <a href="https://www.instagram.com/analytixmvjce?dlrf=MWZ4ZjUwYnRjbzU3NA==" target="_blank" rel="noopener noreferrer" class="text-secondary small fw-semibold ms-lg-2">
+                                    <i class="bi bi-instagram text-danger me-1"></i> Follow on Instagram <i class="bi bi-arrow-up-right"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Statistics Counter Strip -->
+                        <div class="stats-strip reveal mt-5" data-parallax-speed="-0.08">
+                            <div class="row g-3">
+                                <div class="col-6 col-md-3">
+                                    <div class="stat-box">
+                                        <span class="stat-number gradient-text" data-target="150" data-suffix="+">0</span>
+                                        <span class="stat-label">Club Members</span>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-3">
+                                    <div class="stat-box">
+                                        <span class="stat-number gradient-text" data-target="35" data-suffix="+">0</span>
+                                        <span class="stat-label">Projects Built</span>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-3">
+                                    <div class="stat-box">
+                                        <span class="stat-number gradient-text" data-target="20" data-suffix="+">0</span>
+                                        <span class="stat-label">Events & Competitions</span>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-3">
+                                    <div class="stat-box">
+                                        <span class="stat-number gradient-text" data-target="12" data-suffix="+">0</span>
+                                        <span class="stat-label">Awards & Placements</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================================================
+             ABOUT SECTION
+             ========================================================================== -->
+        <section id="about" class="section-padding position-relative">
+            <div class="section-parallax-bg">
+                <div class="parallax-grid-overlay"></div>
+                <div class="parallax-shape parallax-shape-violet" style="top: 20%; left: 5%;" data-parallax-speed="0.45"></div>
+            </div>
+
+            <div class="container position-relative" style="z-index: 1;">
+                <div class="row justify-content-center text-center mb-5">
+                    <div class="col-lg-8 reveal" data-parallax-speed="0.08">
+                        <span class="badge-tag">Our Identity</span>
+                        <h2 class="section-title">Fueling Innovation Through Data & Creativity</h2>
+                        <p class="section-subtitle mx-auto">
+                            ANALYTIX is the official Data Science, Analytics, Design, and Media community at MVJ College of Engineering. We bridge academic theory with real-world industry challenges.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row g-4">
+                    <div class="col-md-4 reveal" data-parallax-speed="0.16">
+                        <div class="glass-card about-card">
+                            <div>
+                                <div class="feature-icon-box">
+                                    <i class="bi bi-graph-up-arrow"></i>
+                                </div>
+                                <h3>Practical Analytics</h3>
+                                <p class="text-secondary">
+                                    We move beyond textbook concepts. Members work with real datasets, building machine learning models, predictive dashboards, and production web applications.
+                                </p>
+                            </div>
+                            <div class="mt-4 pt-3 border-top border-secondary border-opacity-10">
+                                <span class="badge-tag">Hands-on Focus</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 reveal" data-parallax-speed="-0.12" style="transition-delay: 0.15s;">
+                        <div class="glass-card about-card">
+                            <div>
+                                <div class="feature-icon-box" style="background: rgba(139,92,246,0.1); color: var(--accent-violet); border-color: rgba(139,92,246,0.25);">
+                                    <i class="bi bi-palette-fill"></i>
+                                </div>
+                                <h3>Design & Media Synergy</h3>
+                                <p class="text-secondary">
+                                    Data requires compelling storytelling. Our Design and Content teams work side-by-side with developers to create intuitive interfaces and impactful media outreach.
+                                </p>
+                            </div>
+                            <div class="mt-4 pt-3 border-top border-secondary border-opacity-10">
+                                <span class="badge-tag badge-violet">Cross-Functional</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 reveal" data-parallax-speed="0.16" style="transition-delay: 0.3s;">
+                        <div class="glass-card about-card">
+                            <div>
+                                <div class="feature-icon-box" style="background: rgba(6,182,212,0.1); color: var(--accent-cyan); border-color: rgba(6,182,212,0.25);">
+                                    <i class="bi bi-trophy-fill"></i>
+                                </div>
+                                <h3>Competitive Spirit</h3>
+                                <p class="text-secondary">
+                                    We regularly organize inter-departmental hackathons, code jams, and analytics leagues. We mentor members to compete in national-level engineering challenges.
+                                </p>
+                            </div>
+                            <div class="mt-4 pt-3 border-top border-secondary border-opacity-10">
+                                <span class="badge-tag badge-cyan">Excellence</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================================================
+             DEPARTMENTS SECTION
+             ========================================================================== -->
+        <section id="departments" class="section-padding position-relative">
+            <div class="section-parallax-bg">
+                <div class="parallax-grid-overlay"></div>
+                <div class="parallax-shape parallax-shape-cyan" style="bottom: 10%; right: 8%;" data-parallax-speed="0.4"></div>
+            </div>
+
+            <div class="container position-relative" style="z-index: 1;">
+                <div class="row justify-content-center text-center mb-5">
+                    <div class="col-lg-8 reveal" data-parallax-speed="0.08">
+                        <span class="badge-tag">Core Structure</span>
+                        <h2 class="section-title">Club Departments</h2>
+                        <p class="section-subtitle mx-auto">
+                            Three specialized pillars driving analytical precision, visual aesthetic, and audience engagement across MVJCE.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row g-4">
+                    <!-- Technical Department -->
+                    <div class="col-lg-4 reveal" data-parallax-speed="0.15">
+                        <div class="glass-card dept-card h-100">
+                            <span class="badge-tag mb-3"><i class="bi bi-code-slash"></i> Technical</span>
+                            <h3>Technical Team</h3>
+                            <p class="text-secondary small mb-4">
+                                Engine room of ANALYTIX. Focuses on data engineering, machine learning pipelines, full-stack web applications, and competition algorithms.
+                            </p>
+
+                            <h5 class="fs-6 text-uppercase text-muted fw-bold">Focus Areas:</h5>
+                            <div class="mb-3">
+                                <span class="skill-tag">Data Science</span>
+                                <span class="skill-tag">Python / ML</span>
+                                <span class="skill-tag">Web Development</span>
+                                <span class="skill-tag">SQL Analytics</span>
+                                <span class="skill-tag">Hackathons</span>
+                            </div>
+
+                            <div class="dept-poc-pill mt-auto">
+                                <div class="poc-avatar">TC</div>
+                                <div>
+                                    <div class="fw-bold small">Technical POC</div>
+                                    <div class="text-muted extra-small">Lead Developer & Data Engineer</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Design Department -->
+                    <div class="col-lg-4 reveal" data-parallax-speed="-0.12" style="transition-delay: 0.15s;">
+                        <div class="glass-card dept-card dept-card-design h-100">
+                            <span class="badge-tag badge-violet mb-3"><i class="bi bi-brush-fill"></i> Creative</span>
+                            <h3>Design Team</h3>
+                            <p class="text-secondary small mb-4">
+                                Crafting visual identity, UI/UX prototypes, event banners, vector graphics, and data visualization dashboards that captivate users.
+                            </p>
+
+                            <h5 class="fs-6 text-uppercase text-muted fw-bold">Focus Areas:</h5>
+                            <div class="mb-3">
+                                <span class="skill-tag">UI/UX Design</span>
+                                <span class="skill-tag">Figma</span>
+                                <span class="skill-tag">Brand Identity</span>
+                                <span class="skill-tag">Event Posters</span>
+                                <span class="skill-tag">Data Graphics</span>
+                            </div>
+
+                            <div class="dept-poc-pill mt-auto">
+                                <div class="poc-avatar" style="background: var(--accent-violet);">DS</div>
+                                <div>
+                                    <div class="fw-bold small">Design POC</div>
+                                    <div class="text-muted extra-small">Lead UI/UX Designer</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- MOC Department -->
+                    <div class="col-lg-4 reveal" data-parallax-speed="0.15" style="transition-delay: 0.3s;">
+                        <div class="glass-card dept-card dept-card-moc h-100">
+                            <span class="badge-tag badge-cyan mb-3"><i class="bi bi-megaphone-fill"></i> Outreach</span>
+                            <h3>MOC — Media & Content</h3>
+                            <p class="text-secondary small mb-4">
+                                Storytelling engine managing event coverage, technical blogs, social media campaigns, video reels, and announcements.
+                            </p>
+
+                            <h5 class="fs-6 text-uppercase text-muted fw-bold">Focus Areas:</h5>
+                            <div class="mb-3">
+                                <span class="skill-tag">Content Writing</span>
+                                <span class="skill-tag">Instagram Reels</span>
+                                <span class="skill-tag">Event Coverage</span>
+                                <span class="skill-tag">Photography</span>
+                                <span class="skill-tag">Public Relations</span>
+                            </div>
+
+                            <div class="dept-poc-pill mt-auto">
+                                <div class="poc-avatar" style="background: var(--accent-cyan);">MC</div>
+                                <div>
+                                    <div class="fw-bold small">MOC POC</div>
+                                    <div class="text-muted extra-small">Head of Media & Content</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================================================
+             SENIOR MEMBERS & LEADERSHIP HIERARCHY
+             ========================================================================== -->
+        <section id="leadership" class="section-padding position-relative">
+            <div class="section-parallax-bg">
+                <div class="parallax-grid-overlay"></div>
+                <div class="parallax-shape parallax-shape-blue" style="top: 30%; left: 5%;" data-parallax-speed="0.45"></div>
+            </div>
+
+            <div class="container position-relative" style="z-index: 1;">
+                <div class="row justify-content-center text-center mb-5">
+                    <div class="col-lg-8 reveal" data-parallax-speed="0.08">
+                        <span class="badge-tag">Hierarchy</span>
+                        <h2 class="section-title">Club Leadership & Senior Members</h2>
+                        <p class="section-subtitle mx-auto">
+                            Recognizing the dedicated seniors, department points of contact, and core contributors steering ANALYTIX toward excellence.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Tier 1: Club Leadership & Faculty Mentors -->
+                <div class="leadership-tier reveal">
+                    <h4 class="tier-title"><i class="bi bi-star-fill text-warning"></i> Executive Leadership</h4>
+                    <div class="row g-4 justify-content-center">
+                        <div class="col-md-6 col-lg-4" data-parallax-speed="0.14">
+                            <div class="member-card member-card-leader">
+                                <div class="member-avatar">
+                                    <i class="bi bi-person-bounding-box"></i>
+                                </div>
+                                <h4 class="member-name">Faculty Coordinator</h4>
+                                <div class="member-role"><i class="bi bi-mortarboard-fill"></i> Faculty Mentor, MVJCE</div>
+                                <p class="member-bio">Guiding academic research, institutional alignment, and industry collaborations for ANALYTIX Data Science Club.</p>
+                                <div class="member-socials">
+                                    <a href="#" class="social-icon-btn" title="LinkedIn Profile"><i class="bi bi-linkedin"></i></a>
+                                    <a href="mailto:analytix@mvjce.edu.in" class="social-icon-btn" title="Official Email"><i class="bi bi-envelope-fill"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-4" data-parallax-speed="-0.1">
+                            <div class="member-card member-card-leader">
+                                <div class="member-avatar">
+                                    <i class="bi bi-person-fill-gear"></i>
+                                </div>
+                                <h4 class="member-name">President / Club Lead</h4>
+                                <div class="member-role"><i class="bi bi-shield-check"></i> Senior Lead (4th Year)</div>
+                                <p class="member-bio">Overseeing operations, hackathon strategies, inter-departmental workflows, and industry partnerships.</p>
+                                <div class="member-socials">
+                                    <a href="#" class="social-icon-btn"><i class="bi bi-linkedin"></i></a>
+                                    <a href="#" class="social-icon-btn"><i class="bi bi-github"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================================================
+             ACHIEVEMENTS & PROJECT SHOWCASE
+             ========================================================================== -->
+        <section id="achievements" class="section-padding position-relative">
+            <div class="section-parallax-bg">
+                <div class="parallax-grid-overlay"></div>
+                <div class="parallax-shape parallax-shape-violet" style="top: 15%; right: 5%;" data-parallax-speed="0.45"></div>
+            </div>
+
+            <div class="container position-relative" style="z-index: 1;">
+                <div class="row justify-content-center text-center mb-5">
+                    <div class="col-lg-8 reveal" data-parallax-speed="0.08">
+                        <span class="badge-tag">Track Record</span>
+                        <h2 class="section-title">Achievements & Projects</h2>
+                        <p class="section-subtitle mx-auto">
+                            Showcasing hackathon victories, research projects, and creative breakthroughs built by ANALYTIX members.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row g-4">
+                    <div class="col-md-6 col-lg-4 reveal" data-parallax-speed="0.16">
+                        <div class="glass-card achievement-card">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="badge-tag">Hackathon</span>
+                                <span class="achievement-meta">2025</span>
+                            </div>
+                            <h3>Smart City Predictive Analytics</h3>
+                            <p class="text-secondary small">
+                                Developed a real-time traffic flow prediction model using IoT sensor data and LSTM neural networks, securing 1st Prize in State-Level Tech Fest.
+                            </p>
+                            <div class="mt-auto pt-3 border-top border-secondary border-opacity-10 d-flex justify-content-between align-items-center">
+                                <span class="text-warning small fw-bold"><i class="bi bi-trophy-fill"></i> 1st Winner</span>
+                                <a href="#" class="btn btn-outline-glow btn-sm">Details <i class="bi bi-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4 reveal" data-parallax-speed="-0.1" style="transition-delay: 0.15s;">
+                        <div class="glass-card achievement-card">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="badge-tag badge-violet">UI/UX Project</span>
+                                <span class="achievement-meta">2025</span>
+                            </div>
+                            <h3>Campus Analytics Portal</h3>
+                            <p class="text-secondary small">
+                                Redesigned MVJCE student attendance & academic analytics dashboard with custom glassmorphism components and intuitive charts.
+                            </p>
+                            <div class="mt-auto pt-3 border-top border-secondary border-opacity-10 d-flex justify-content-between align-items-center">
+                                <span class="text-info small fw-bold"><i class="bi bi-check-circle-fill"></i> Deployed</span>
+                                <a href="#" class="btn btn-outline-glow btn-sm">View Prototype</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4 reveal" data-parallax-speed="0.16" style="transition-delay: 0.3s;">
+                        <div class="glass-card achievement-card">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="badge-tag badge-cyan">Research</span>
+                                <span class="achievement-meta">2024</span>
+                            </div>
+                            <h3>Healthcare Churn Prediction</h3>
+                            <p class="text-secondary small">
+                                Formulated supervised classification pipeline to identify patient readmission risks using open health datasets with 94.2% ROC-AUC score.
+                            </p>
+                            <div class="mt-auto pt-3 border-top border-secondary border-opacity-10 d-flex justify-content-between align-items-center">
+                                <span class="text-success small fw-bold"><i class="bi bi-journal-code"></i> Paper Published</span>
+                                <a href="#" class="btn btn-outline-glow btn-sm">Paper Link</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================================================
+             PARTICIPATION POINTS & LEADERBOARD
+             ========================================================================== -->
+        <section id="leaderboard" class="section-padding position-relative">
+            <div class="section-parallax-bg">
+                <div class="parallax-grid-overlay"></div>
+            </div>
+
+            <div class="container position-relative" style="z-index: 1;">
+                <div class="row justify-content-center text-center mb-4">
+                    <div class="col-lg-8 reveal" data-parallax-speed="0.08">
+                        <span class="badge-tag"><i class="bi bi-bar-chart-line-fill"></i> Live Rankings</span>
+                        <h2 class="section-title">Activity Leaderboard</h2>
+                        <p class="section-subtitle mx-auto">
+                            Recognizing member engagement in hackathons, workshops, code submissions, and volunteering.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Top 3 Podium Cards -->
+                <div class="podium-container reveal" data-parallax-speed="0.12">
+                    <!-- 2nd Rank -->
+                    <div class="podium-card podium-2">
+                        <div class="podium-rank">2</div>
+                        <h5 class="fw-bold mt-2 mb-1">Ananya Rao</h5>
+                        <span class="badge-tag badge-violet extra-small mb-2">Design</span>
+                        <div class="fw-bold text-light">385 pts</div>
+                    </div>
+                    <!-- 1st Rank -->
+                    <div class="podium-card podium-1" data-parallax-speed="-0.08">
+                        <div class="podium-rank"><i class="bi bi-crown-fill"></i></div>
+                        <h5 class="fw-bold mt-2 mb-1">Aarav Sharma</h5>
+                        <span class="badge-tag extra-small mb-2">Technical</span>
+                        <div class="fw-bold text-warning fs-5">420 pts</div>
+                    </div>
+                    <!-- 3rd Rank -->
+                    <div class="podium-card podium-3">
+                        <div class="podium-rank">3</div>
+                        <h5 class="fw-bold mt-2 mb-1">Rohan Kulkarni</h5>
+                        <span class="badge-tag extra-small mb-2">Technical</span>
+                        <div class="fw-bold text-light">350 pts</div>
+                    </div>
+                </div>
+
+                <!-- Controls & Filter Strip -->
+                <div class="row justify-content-between align-items-center mb-3 g-3 reveal">
+                    <div class="col-md-5">
+                        <select class="form-select form-select-custom form-select-sm" id="leaderboardFilterDept">
+                            <option value="All">All Departments</option>
+                            <option value="Technical">Technical Team</option>
+                            <option value="Design">Design Team</option>
+                            <option value="MOC">MOC (Media & Content)</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4 text-md-end">
+                        <button class="btn btn-outline-glow btn-sm" data-bs-toggle="modal" data-bs-target="#scoringCriteriaModal">
+                            <i class="bi bi-question-circle me-1"></i> Scoring Rules
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Leaderboard Table -->
+                <div class="leaderboard-table-wrapper reveal">
+                    <div class="table-responsive">
+                        <table class="table table-dark-custom align-middle">
+                            <thead>
+                                <tr>
+                                    <th style="width: 80px;">Rank</th>
+                                    <th>Member Name</th>
+                                    <th>Department</th>
+                                    <th>Points</th>
+                                    <th>Recent Contributions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="leaderboardTableBody">
+                                <!-- Populated dynamically by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================================================
+             EVENTS & COMPETITIONS SECTION
+             ========================================================================== -->
+        <section id="events" class="section-padding position-relative">
+            <div class="section-parallax-bg">
+                <div class="parallax-grid-overlay"></div>
+                <div class="parallax-shape parallax-shape-cyan" style="top: 25%; left: 10%;" data-parallax-speed="0.4"></div>
+            </div>
+
+            <div class="container position-relative" style="z-index: 1;">
+                <div class="row justify-content-center text-center mb-5">
+                    <div class="col-lg-8 reveal" data-parallax-speed="0.08">
+                        <span class="badge-tag"><i class="bi bi-calendar-event-fill"></i> Engagement</span>
+                        <h2 class="section-title">Events & Competitions</h2>
+                        <p class="section-subtitle mx-auto">
+                            Participate in upcoming analytics leagues, inter-college hackathons, and design sprints.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Event Category Filter Buttons -->
+                <div class="filter-btn-group justify-content-center reveal">
+                    <button class="btn-filter active" data-event-filter="all">All Events</button>
+                    <button class="btn-filter" data-event-filter="upcoming">Upcoming</button>
+                    <button class="btn-filter" data-event-filter="ongoing">Ongoing</button>
+                    <button class="btn-filter" data-event-filter="completed">Completed</button>
+                </div>
+
+                <div class="row g-4 mt-2">
+                    <!-- Event 1 -->
+                    <div class="col-md-6 col-lg-4 event-card-col reveal" data-event-category="upcoming" data-parallax-speed="0.15">
+                        <div class="glass-card event-card">
+                            <div>
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <span class="event-status-badge status-upcoming">Upcoming</span>
+                                    <span class="text-muted small"><i class="bi bi-clock me-1"></i> Oct 28, 2026</span>
+                                </div>
+                                <h4>DataSprint 2026: 24h Hackathon</h4>
+                                <p class="text-secondary small">
+                                    24-hour analytics sprint solving real urban data problems using Machine Learning and Python. Open to all MVJCE branches.
+                                </p>
+                            </div>
+                            <div class="mt-4 pt-3 border-top border-secondary border-opacity-10 d-flex justify-content-between align-items-center">
+                                <span class="text-muted extra-small">Deadline: Oct 25</span>
+                                <button class="btn btn-primary-glow btn-sm" onclick="openEventRegistrationModal('DataSprint 2026: 24h Hackathon')">
+                                    Register Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Event 2 -->
+                    <div class="col-md-6 col-lg-4 event-card-col reveal" data-event-category="ongoing" data-parallax-speed="-0.1" style="transition-delay: 0.15s;">
+                        <div class="glass-card event-card">
+                            <div>
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <span class="event-status-badge status-ongoing">Ongoing</span>
+                                    <span class="text-muted small"><i class="bi bi-lightning-charge me-1"></i> Live Challenge</span>
+                                </div>
+                                <h4>UI/UX Data Dashboard Contest</h4>
+                                <p class="text-secondary small">
+                                    Craft intuitive data dashboard prototypes in Figma for campus energy optimization metrics.
+                                </p>
+                            </div>
+                            <div class="mt-4 pt-3 border-top border-secondary border-opacity-10 d-flex justify-content-between align-items-center">
+                                <span class="text-muted extra-small">Submissions Open</span>
+                                <button class="btn btn-primary-glow btn-sm" onclick="openEventRegistrationModal('UI/UX Data Dashboard Contest')">
+                                    Submit Design
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Event 3 -->
+                    <div class="col-md-6 col-lg-4 event-card-col reveal" data-event-category="completed" data-parallax-speed="0.15" style="transition-delay: 0.3s;">
+                        <div class="glass-card event-card">
+                            <div>
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <span class="event-status-badge status-completed">Completed</span>
+                                    <span class="text-muted small">Sept 2026</span>
+                                </div>
+                                <h4>SQL Analytics Battleground</h4>
+                                <p class="text-secondary small">
+                                    Fast-paced SQL query competition testing database joins, aggregation, and performance tuning under pressure.
+                                </p>
+                            </div>
+                            <div class="mt-4 pt-3 border-top border-secondary border-opacity-10 d-flex justify-content-between align-items-center">
+                                <span class="text-muted extra-small">45 Participants</span>
+                                <button class="btn btn-outline-glow btn-sm" disabled>Event Concluded</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================================================
+             WORKSHOPS & PRACTICAL CHALLENGES (WITH DATASET DOWNLOADS)
+             ========================================================================== -->
+        <section id="workshops" class="section-padding position-relative">
+            <div class="section-parallax-bg">
+                <div class="parallax-grid-overlay"></div>
+                <div class="parallax-shape parallax-shape-blue" style="bottom: 15%; right: 5%;" data-parallax-speed="0.4"></div>
+            </div>
+
+            <div class="container position-relative" style="z-index: 1;">
+                <div class="row justify-content-center text-center mb-5">
+                    <div class="col-lg-8 reveal" data-parallax-speed="0.08">
+                        <span class="badge-tag"><i class="bi bi-file-earmark-code-fill"></i> Practical Learning</span>
+                        <h2 class="section-title">Workshops & Datasets</h2>
+                        <p class="section-subtitle mx-auto">
+                            Download raw datasets, solve practical engineering challenges, and earn points on the club leaderboard.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row g-4">
+                    <!-- Challenge 1 -->
+                    <div class="col-md-6 col-lg-4 reveal" data-parallax-speed="0.16">
+                        <div class="glass-card challenge-card h-100">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="badge-tag">Python & ML</span>
+                                <span class="text-warning extra-small fw-bold">+100 Leaderboard Pts</span>
+                            </div>
+                            <h4>Customer Churn Predictive Model</h4>
+                            <p class="text-secondary small mb-3">
+                                Train a logistic regression or random forest model to predict customer churn using telecom service records.
+                            </p>
+                            
+                            <div class="mb-4">
+                                <div class="fw-bold extra-small text-uppercase text-muted mb-2">Available Dataset:</div>
+                                <a href="assets/datasets/customer_churn_dataset.csv" download class="dataset-link-btn">
+                                    <i class="bi bi-download"></i> customer_churn_dataset.csv
+                                </a>
+                            </div>
+
+                            <div class="mt-auto pt-3 border-top border-secondary border-opacity-10 d-flex justify-content-between align-items-center">
+                                <span class="text-muted extra-small">Diff: Intermediate</span>
+                                <button class="btn btn-primary-glow btn-sm" onclick="openChallengeModal('Customer Churn Predictive Model')">
+                                    Submit Solution
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Challenge 2 -->
+                    <div class="col-md-6 col-lg-4 reveal" data-parallax-speed="-0.1" style="transition-delay: 0.15s;">
+                        <div class="glass-card challenge-card h-100" style="border-left-color: var(--accent-cyan);">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="badge-tag badge-cyan">Data Science</span>
+                                <span class="text-warning extra-small fw-bold">+75 Leaderboard Pts</span>
+                            </div>
+                            <h4>Real Estate Pricing Regression</h4>
+                            <p class="text-secondary small mb-3">
+                                Predict housing property prices based on square footage, locality scores, and proximity to metro lines.
+                            </p>
+                            
+                            <div class="mb-4">
+                                <div class="fw-bold extra-small text-uppercase text-muted mb-2">Available Dataset:</div>
+                                <a href="assets/datasets/housing_prices_predictive.csv" download class="dataset-link-btn">
+                                    <i class="bi bi-download"></i> housing_prices_predictive.csv
+                                </a>
+                            </div>
+
+                            <div class="mt-auto pt-3 border-top border-secondary border-opacity-10 d-flex justify-content-between align-items-center">
+                                <span class="text-muted extra-small">Diff: Beginner</span>
+                                <button class="btn btn-primary-glow btn-sm" onclick="openChallengeModal('Real Estate Pricing Regression')">
+                                    Submit Solution
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Challenge 3 -->
+                    <div class="col-md-6 col-lg-4 reveal" data-parallax-speed="0.16" style="transition-delay: 0.3s;">
+                        <div class="glass-card challenge-card h-100" style="border-left-color: var(--accent-violet);">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="badge-tag badge-violet">SQL Analytics</span>
+                                <span class="text-warning extra-small fw-bold">+85 Leaderboard Pts</span>
+                            </div>
+                            <h4>Retail Sales Trends Analysis</h4>
+                            <p class="text-secondary small mb-3">
+                                Analyze regional sales revenue, category growth rate, and customer satisfaction using SQL aggregation.
+                            </p>
+                            
+                            <div class="mb-4">
+                                <div class="fw-bold extra-small text-uppercase text-muted mb-2">Available Dataset:</div>
+                                <a href="assets/datasets/sales_trends_2025.csv" download class="dataset-link-btn">
+                                    <i class="bi bi-download"></i> sales_trends_2025.csv
+                                </a>
+                            </div>
+
+                            <div class="mt-auto pt-3 border-top border-secondary border-opacity-10 d-flex justify-content-between align-items-center">
+                                <span class="text-muted extra-small">Diff: Intermediate</span>
+                                <button class="btn btn-primary-glow btn-sm" onclick="openChallengeModal('Retail Sales Trends Analysis')">
+                                    Submit Solution
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================================================
+             ALUMNI NETWORK SECTION
+             ========================================================================== -->
+        <section id="alumni" class="section-padding position-relative">
+            <div class="section-parallax-bg">
+                <div class="parallax-grid-overlay"></div>
+            </div>
+
+            <div class="container position-relative" style="z-index: 1;">
+                <div class="row justify-content-center text-center mb-5">
+                    <div class="col-lg-8 reveal" data-parallax-speed="0.08">
+                        <span class="badge-tag"><i class="bi bi-diagram-3-fill"></i> Mentorship</span>
+                        <h2 class="section-title">Alumni Network</h2>
+                        <p class="section-subtitle mx-auto">
+                            Connecting current MVJCE students with ANALYTIX alumni working at leading tech enterprises.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row g-4">
+                    <div class="col-md-4 reveal" data-parallax-speed="0.14">
+                        <div class="alumni-card h-100">
+                            <div>
+                                <div class="d-flex align-items-center gap-3 mb-3">
+                                    <div class="poc-avatar fs-5" style="width: 48px; height: 48px;">VK</div>
+                                    <div>
+                                        <h5 class="mb-0 fw-bold">Vikram K.</h5>
+                                        <span class="text-muted extra-small">Batch of 2023 | Ex-Tech Lead</span>
+                                    </div>
+                                </div>
+                                <div class="fw-semibold text-primary mb-2">Data Engineer @ Enterprise AI</div>
+                                <p class="text-secondary small">
+                                    "ANALYTIX gave me my first hands-on experience building distributed data pipelines during college hackathons."
+                                </p>
+                            </div>
+                            <div class="mt-3 pt-3 border-top border-secondary border-opacity-10 d-flex justify-content-between align-items-center">
+                                <span class="badge-tag extra-small">Mentorship</span>
+                                <a href="#" class="btn btn-outline-glow btn-sm" onclick="showToast('Connecting with Alumni Profile...', 'info'); return false;">
+                                    <i class="bi bi-linkedin"></i> Connect
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 reveal" data-parallax-speed="-0.1" style="transition-delay: 0.15s;">
+                        <div class="alumni-card h-100">
+                            <div>
+                                <div class="d-flex align-items-center gap-3 mb-3">
+                                    <div class="poc-avatar fs-5" style="width: 48px; height: 48px; background: var(--accent-violet);">PS</div>
+                                    <div>
+                                        <h5 class="mb-0 fw-bold">Pooja S.</h5>
+                                        <span class="text-muted extra-small">Batch of 2024 | Ex-Design POC</span>
+                                    </div>
+                                </div>
+                                <div class="fw-semibold text-violet mb-2" style="color: var(--accent-violet);">Senior Product Designer @ SaaS Inc</div>
+                                <p class="text-secondary small">
+                                    "Designing for ANALYTIX taught me real design systems and how to present complex data visually."
+                                </p>
+                            </div>
+                            <div class="mt-3 pt-3 border-top border-secondary border-opacity-10 d-flex justify-content-between align-items-center">
+                                <span class="badge-tag badge-violet extra-small">UI/UX Guide</span>
+                                <a href="#" class="btn btn-outline-glow btn-sm" onclick="showToast('Connecting with Alumni Profile...', 'info'); return false;">
+                                    <i class="bi bi-linkedin"></i> Connect
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 reveal" data-parallax-speed="0.14" style="transition-delay: 0.3s;">
+                        <div class="alumni-card h-100">
+                            <div>
+                                <div class="d-flex align-items-center gap-3 mb-3">
+                                    <div class="poc-avatar fs-5" style="width: 48px; height: 48px; background: var(--accent-cyan);">RD</div>
+                                    <div>
+                                        <h5 class="mb-0 fw-bold">Rahul D.</h5>
+                                        <span class="text-muted extra-small">Batch of 2022 | Ex-Vice President</span>
+                                    </div>
+                                </div>
+                                <div class="fw-semibold text-cyan mb-2" style="color: var(--accent-cyan);">ML Research Engineer @ Analytics Corp</div>
+                                <p class="text-secondary small">
+                                    "Always happy to mentor MVJCE students preparing for data analyst and data engineering campus placements."
+                                </p>
+                            </div>
+                            <div class="mt-3 pt-3 border-top border-secondary border-opacity-10 d-flex justify-content-between align-items-center">
+                                <span class="badge-tag badge-cyan extra-small">Career Guidance</span>
+                                <a href="#" class="btn btn-outline-glow btn-sm" onclick="showToast('Connecting with Alumni Profile...', 'info'); return false;">
+                                    <i class="bi bi-linkedin"></i> Connect
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================================================
+             MEMBERSHIP APPLICATION — JOIN ANALYTIX
+             ========================================================================== -->
+        <section id="join" class="section-padding position-relative">
+            <div class="section-parallax-bg">
+                <div class="parallax-grid-overlay"></div>
+                <div class="parallax-shape parallax-shape-violet" style="top: 10%; right: 15%;" data-parallax-speed="0.45"></div>
+            </div>
+
+            <div class="container position-relative" style="z-index: 1;">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8 text-center reveal mb-5" data-parallax-speed="0.08">
+                        <span class="badge-tag"><i class="bi bi-send-fill"></i> Become a Member</span>
+                        <h2 class="section-title">Join ANALYTIX Club</h2>
+                        <p class="section-subtitle mx-auto">
+                            Are you ready to build real projects, compete in hackathons, and level up your data & design skills at MVJCE? Submit your membership application below.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row justify-content-center">
+                    <div class="col-lg-8 reveal" data-parallax-speed="0.06">
+                        <div class="glass-card p-4 p-md-5">
+                            <form id="membershipForm" novalidate>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label for="memName" class="form-label-custom">Full Name *</label>
+                                        <input type="text" class="form-control form-control-custom" id="memName" placeholder="e.g. Rahul Sharma" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="memEmail" class="form-label-custom">College Email ID *</label>
+                                        <input type="email" class="form-control form-control-custom" id="memEmail" placeholder="name@mvjce.edu.in" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="memYear" class="form-label-custom">Academic Year *</label>
+                                        <select class="form-select form-select-custom" id="memYear" required>
+                                            <option value="" selected disabled>Select Year</option>
+                                            <option value="1st Year">1st Year</option>
+                                            <option value="2nd Year">2nd Year</option>
+                                            <option value="3rd Year">3rd Year</option>
+                                            <option value="4th Year">4th Year</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="memDept" class="form-label-custom">Preferred Department *</label>
+                                        <select class="form-select form-select-custom" id="memDept" required>
+                                            <option value="" selected disabled>Select Department</option>
+                                            <option value="Technical">Technical (Data, Web, Coding)</option>
+                                            <option value="Design">Design (UI/UX, Visuals, Posters)</option>
+                                            <option value="MOC">MOC (Media, Reels, Content)</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="memSkills" class="form-label-custom">Current Skills & Interests</label>
+                                        <input type="text" class="form-control form-control-custom" id="memSkills" placeholder="e.g. Python, SQL, Figma, Video Editing, React, C++">
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="memReason" class="form-label-custom">Why do you want to join ANALYTIX? *</label>
+                                        <textarea class="form-control form-control-custom" id="memReason" rows="3" placeholder="Briefly describe your goals and interest in data science..." required></textarea>
+                                    </div>
+                                    <div class="col-12 text-center mt-4">
+                                        <button type="submit" class="btn btn-primary-glow btn-lg px-5">
+                                            Submit Application <i class="bi bi-send-check-fill me-1"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================================================
+             FOOTER & OFFICIAL INSTAGRAM INTEGRATION
+             ========================================================================== -->
+        <footer class="footer-analytix">
+            <div class="container">
+                <div class="row g-4 mb-5">
+                    <div class="col-lg-4">
+                        <div class="footer-brand d-flex align-items-center gap-2 mb-3">
+                            <img src="assets/images/logo.png" alt="ANALYTIX Logo" class="footer-logo-img">
+                        </div>
+                        <p class="text-secondary small mb-3">
+                            The Official Data Science & Analytics Club of MVJ College of Engineering, Bengaluru. Turning Data Into Direction.
+                        </p>
+                        <div class="d-flex gap-2">
+                            <a href="https://www.instagram.com/analytixmvjce?dlrf=MWZ4ZjUwYnRjbzU3NA==" target="_blank" rel="noopener noreferrer" class="social-icon-btn text-danger" title="Official Instagram">
+                                <i class="bi bi-instagram"></i>
+                            </a>
+                            <a href="#" class="social-icon-btn" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
+                            <a href="#" class="social-icon-btn" title="GitHub Repository"><i class="bi bi-github"></i></a>
+                            <a href="mailto:analytix@mvjce.edu.in" class="social-icon-btn" title="Email Us"><i class="bi bi-envelope-fill"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-lg-2">
+                        <h6 class="text-uppercase text-light fw-bold mb-3 small">Quick Links</h6>
+                        <a href="#hero" class="footer-link">Home</a>
+                        <a href="#about" class="footer-link">About Us</a>
+                        <a href="#departments" class="footer-link">Departments</a>
+                        <a href="#leadership" class="footer-link">Leadership</a>
+                    </div>
+
+                    <div class="col-6 col-lg-2">
+                        <h6 class="text-uppercase text-light fw-bold mb-3 small">Activities</h6>
+                        <a href="#achievements" class="footer-link">Achievements</a>
+                        <a href="#leaderboard" class="footer-link">Leaderboard</a>
+                        <a href="#events" class="footer-link">Events</a>
+                        <a href="#workshops" class="footer-link">Workshops</a>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <h6 class="text-uppercase text-light fw-bold mb-3 small">Institution</h6>
+                        <p class="text-secondary small mb-2">
+                            <i class="bi bi-geo-alt-fill me-1 text-primary"></i> MVJ College of Engineering, Near ITPB, Channasandra, Whitefield, Bengaluru, Karnataka 560067.
+                        </p>
+                        <p class="text-secondary small">
+                            <i class="bi bi-instagram me-1 text-danger"></i> Official Handle: 
+                            <a href="https://www.instagram.com/analytixmvjce?dlrf=MWZ4ZjUwYnRjbzU3NA==" target="_blank" rel="noopener noreferrer" class="text-info">@analytixmvjce</a>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="border-top border-secondary border-opacity-10 pt-4 d-flex flex-column flex-md-row justify-content-between align-items-center text-secondary small">
+                    <div>
+                        © 2026 ANALYTIX Club — MVJ College of Engineering. All rights reserved.
+                    </div>
+                    <div class="mt-2 mt-md-0">
+                        Designed with minimal dark elegance.
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+    </div> <!-- End Parallax Container -->
+
+    <!-- Floating Back to Top Button -->
+    <button id="backToTopBtn" class="back-to-top-btn" title="Scroll to top">
+        <i class="bi bi-arrow-up"></i>
+    </button>
+
+    <!-- Toast Notification Container -->
+    <div id="toastContainer" class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 1090;"></div>
+
+    <!-- ==========================================================================
+         MODALS
+         ========================================================================== -->
+
+    <!-- Event Registration Modal -->
+    <div class="modal fade" id="eventRegistrationModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content modal-content-custom">
+                <div class="modal-header modal-header-custom">
+                    <h5 class="modal-title fw-bold" id="modalEventTitle">Event Registration</h5>
+                    <button type="button" class="btn-close btn-close-white-custom" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form id="eventRegistrationForm">
+                        <div class="mb-3">
+                            <label class="form-label-custom">Full Name *</label>
+                            <input type="text" class="form-control form-control-custom" id="eventRegName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label-custom">USN / Student ID *</label>
+                            <input type="text" class="form-control form-control-custom" id="eventRegUsn" placeholder="1MJ22CS..." required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label-custom">Branch & Semester *</label>
+                            <input type="text" class="form-control form-control-custom" id="eventRegBranch" placeholder="CSE - 5th Sem" required>
+                        </div>
+                        <div class="text-end mt-4">
+                            <button type="button" class="btn btn-outline-glow btn-sm me-2" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary-glow btn-sm">Confirm Registration</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Challenge Submission Modal -->
+    <div class="modal fade" id="challengeSubmissionModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content modal-content-custom">
+                <div class="modal-header modal-header-custom">
+                    <h5 class="modal-title fw-bold" id="modalChallengeTitle">Submit Challenge Solution</h5>
+                    <button type="button" class="btn-close btn-close-white-custom" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form id="challengeSubmissionForm">
+                        <div class="mb-3">
+                            <label class="form-label-custom">GitHub Repository / Notebook Link *</label>
+                            <input type="url" class="form-control form-control-custom" id="challengeRepoUrl" placeholder="https://github.com/username/project" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label-custom">Brief Method Summary</label>
+                            <textarea class="form-control form-control-custom" rows="3" placeholder="Describe preprocessing, model metrics, or query logic used..."></textarea>
+                        </div>
+                        <div class="text-end mt-4">
+                            <button type="button" class="btn btn-outline-glow btn-sm me-2" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary-glow btn-sm">Submit Solution</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scoring Rules Modal -->
+    <div class="modal fade" id="scoringCriteriaModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content modal-content-custom">
+                <div class="modal-header modal-header-custom">
+                    <h5 class="modal-title fw-bold"><i class="bi bi-info-circle-fill text-primary me-2"></i> Leaderboard Points System</h5>
+                    <button type="button" class="btn-close btn-close-white-custom" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="mb-3 pb-2 border-bottom border-secondary border-opacity-10">
+                        <div class="d-flex justify-content-between fw-bold"><span>Hackathon 1st Winner</span> <span class="text-warning">+150 pts</span></div>
+                    </div>
+                    <div class="mb-3 pb-2 border-bottom border-secondary border-opacity-10">
+                        <div class="d-flex justify-content-between fw-bold"><span>Hackathon Runner-Up</span> <span class="text-info">+100 pts</span></div>
+                    </div>
+                    <div class="mb-3 pb-2 border-bottom border-secondary border-opacity-10">
+                        <div class="d-flex justify-content-between fw-bold"><span>Workshop Dataset Challenge</span> <span class="text-success">+75 to +100 pts</span></div>
+                    </div>
+                    <div class="mb-3 pb-2 border-bottom border-secondary border-opacity-10">
+                        <div class="d-flex justify-content-between fw-bold"><span>Event Attendance / Volunteering</span> <span class="text-primary">+30 pts</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Confirmation Modal -->
+    <div class="modal fade" id="successConfirmationModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content modal-content-custom text-center p-4">
+                <div class="mb-3">
+                    <i class="bi bi-check-circle-fill text-success" style="font-size: 3.5rem;"></i>
+                </div>
+                <h4 class="fw-bold mb-2" id="successModalTitle">Success!</h4>
+                <div class="text-secondary mb-4" id="successModalBody">Your request has been processed.</div>
+                <div>
+                    <button type="button" class="btn btn-primary-glow btn-sm px-4" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Embedded Self-Contained JavaScript Engine & Parallax Controller -->
+    <script>
+        function startApp() {
+            initParallaxEngine();
+            initNavbarScrollSpy();
+            initStatsCounter();
+            initScrollReveals();
+            initLeaderboard();
+            initEventFilters();
+            initFormValidations();
+            initBackToTop();
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', startApp);
+        } else {
+            startApp();
+        }
+
+        /* ==========================================================================
+           1. Parallax Scroll Engine (High-Impact Multi-Layered Depth)
+           ========================================================================== */
+
+        function initParallaxEngine() {
+            const parallaxElements = document.querySelectorAll('[data-parallax-speed]');
+            const glowOrbs = document.querySelectorAll('.glow-orb');
+            const gridOverlays = document.querySelectorAll('.parallax-grid-overlay');
+            const parallaxShapes = document.querySelectorAll('.parallax-shape');
+            const heroBgLayer = document.querySelector('.hero-bg-layer');
+
+            function updateParallax() {
+                const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+                const windowHeight = window.innerHeight;
+                const docHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight) - windowHeight;
+                const scrollRatio = docHeight > 0 ? scrollY / docHeight : 0;
+
+                // 1. Hero Background Layer Parallax
+                if (heroBgLayer && scrollY < windowHeight + 200) {
+                    const heroOffset = scrollY * 0.45;
+                    heroBgLayer.style.transform = `translate3d(0, ${heroOffset.toFixed(2)}px, 0)`;
+                }
+
+                // 2. Section Foreground Cards & Floating Content
+                parallaxElements.forEach(el => {
+                    const speed = parseFloat(el.getAttribute('data-parallax-speed')) || 0.15;
+                    const direction = el.getAttribute('data-parallax-direction') === 'down' ? 1 : -1;
+                    
+                    const parentSection = el.closest('section') || el.parentElement;
+                    if (parentSection) {
+                        const rect = parentSection.getBoundingClientRect();
+                        if (rect.top < windowHeight + 300 && rect.bottom > -300) {
+                            const sectionCenter = rect.top + rect.height / 2;
+                            const viewportCenter = windowHeight / 2;
+                            const offset = (sectionCenter - viewportCenter) * speed * direction;
+                            el.style.transform = `translate3d(0, ${offset.toFixed(2)}px, 0)`;
+                        }
+                    } else {
+                        const offset = scrollY * speed * direction;
+                        el.style.transform = `translate3d(0, ${offset.toFixed(2)}px, 0)`;
+                    }
+                });
+
+                // 3. Section Background Radial Grid Overlays
+                gridOverlays.forEach((grid, idx) => {
+                    const parentSection = grid.closest('section');
+                    if (parentSection) {
+                        const rect = parentSection.getBoundingClientRect();
+                        if (rect.top < windowHeight + 300 && rect.bottom > -300) {
+                            const speed = 0.35 * (idx % 2 === 0 ? 1 : -1);
+                            const yPos = (rect.top - windowHeight / 2) * speed;
+                            grid.style.transform = `translate3d(0, ${yPos.toFixed(2)}px, 0)`;
+                        }
+                    }
+                });
+
+                // 4. Section Decorative Background Shapes
+                parallaxShapes.forEach((shape, idx) => {
+                    const parentSection = shape.closest('section');
+                    if (parentSection) {
+                        const rect = parentSection.getBoundingClientRect();
+                        if (rect.top < windowHeight + 300 && rect.bottom > -300) {
+                            const baseSpeed = parseFloat(shape.getAttribute('data-parallax-speed')) || 0.4;
+                            const speed = baseSpeed * (idx % 2 === 0 ? -1 : 1);
+                            const yPos = (rect.top - windowHeight / 2) * speed;
+                            shape.style.transform = `translate3d(0, ${yPos.toFixed(2)}px, 0)`;
+                        }
+                    }
+                });
+
+                // 5. Viewport Ambient Glowing Orbs (Floating 3D Motion)
+                glowOrbs.forEach((orb, index) => {
+                    const speedY = (index + 1) * 250;
+                    const yPos = (scrollRatio - 0.3) * speedY;
+                    const xPos = Math.sin(scrollY * 0.0025 + index) * 60;
+                    orb.style.transform = `translate3d(${xPos.toFixed(2)}px, ${yPos.toFixed(2)}px, 0)`;
+                });
+            }
+
+            let ticking = false;
+            function onScroll() {
+                if (!ticking) {
+                    window.requestAnimationFrame(() => {
+                        updateParallax();
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            }
+
+            // Trigger initial render immediately
+            updateParallax();
+
+            // Attach passive event listeners
+            window.addEventListener('scroll', onScroll, { passive: true });
+            window.addEventListener('resize', onScroll, { passive: true });
+        }
+
+        /* ==========================================================================
+           2. Navbar Scroll State & ScrollSpy
+           ========================================================================== */
+
+        function initNavbarScrollSpy() {
+            const navbar = document.getElementById('mainNavbar');
+            const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+            const sections = document.querySelectorAll('section[id]');
+
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 40) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+
+                let currentSection = '';
+                const scrollPos = window.scrollY + 120;
+
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.offsetHeight;
+
+                    if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+                        currentSection = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${currentSection}`) {
+                        link.classList.add('active');
+                    }
+                });
+            }, { passive: true });
+        }
+
+        /* ==========================================================================
+           3. Animated Statistics Counter
+           ========================================================================== */
+
+        function initStatsCounter() {
+            const statNumbers = document.querySelectorAll('.stat-number');
+            let animated = false;
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !animated) {
+                        animated = true;
+                        statNumbers.forEach(stat => {
+                            const target = parseInt(stat.getAttribute('data-target'), 10) || 0;
+                            const suffix = stat.getAttribute('data-suffix') || '';
+                            let count = 0;
+                            const duration = 2000;
+                            const stepTime = Math.max(Math.floor(duration / target), 20);
+
+                            const timer = setInterval(() => {
+                                count += Math.ceil(target / (duration / stepTime));
+                                if (count >= target) {
+                                    count = target;
+                                    clearInterval(timer);
+                                }
+                                stat.textContent = count + suffix;
+                            }, stepTime);
+                        });
+                    }
+                });
+            }, { threshold: 0.4 });
+
+            const statsStrip = document.querySelector('.stats-strip');
+            if (statsStrip) observer.observe(statsStrip);
+        }
+
+        /* ==========================================================================
+           4. Scroll Reveals
+           ========================================================================== */
+
+        function initScrollReveals() {
+            const reveals = document.querySelectorAll('.reveal');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, {
+                threshold: 0.12,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            reveals.forEach(el => observer.observe(el));
+        }
+
+        /* ==========================================================================
+           5. Interactive Leaderboard
+           ========================================================================== */
+
+        const leaderboardData = [
+            { rank: 1, name: "Aarav Sharma", dept: "Technical", points: 420, contributions: "1st Place Hackathon, 4 Workshops" },
+            { rank: 2, name: "Ananya Rao", dept: "Design", points: 385, contributions: "Branding Overhaul, 3 Project Submissions" },
+            { rank: 3, name: "Rohan Kulkarni", dept: "Technical", points: 350, contributions: "Dataset Challenge Winner, Mentorship" },
+            { rank: 4, name: "Sneha Patel", dept: "MOC", points: 310, contributions: "Event Coverage, 2 Workshops Conducted" },
+            { rank: 5, name: "Vikram Reddy", dept: "Technical", points: 295, contributions: "SQL Challenge Winner, 2 Projects" },
+            { rank: 6, name: "Priya Nair", dept: "Design", points: 270, contributions: "Poster Design Winner, Hackathon Mentoring" },
+            { rank: 7, name: "Karthik Verma", dept: "MOC", points: 240, contributions: "Social Media Campaign, Event Lead" }
+        ];
+
+        function initLeaderboard() {
+            const tableBody = document.getElementById('leaderboardTableBody');
+            const deptFilterSelect = document.getElementById('leaderboardFilterDept');
+
+            if (!tableBody) return;
+
+            function renderLeaderboard(data) {
+                tableBody.innerHTML = '';
+                data.forEach((item) => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td class="fw-bold text-center">
+                            <span class="badge ${item.rank === 1 ? 'bg-warning text-dark' : item.rank === 2 ? 'bg-secondary' : item.rank === 3 ? 'bg-danger' : 'bg-dark'} rounded-circle px-2 py-1">
+                                #${item.rank}
+                            </span>
+                        </td>
+                        <td class="fw-semibold">${item.name}</td>
+                        <td>
+                            <span class="badge-tag ${item.dept === 'Technical' ? '' : item.dept === 'Design' ? 'badge-violet' : 'badge-cyan'}">
+                                ${item.dept}
+                            </span>
+                        </td>
+                        <td class="fw-bold text-primary">${item.points} pts</td>
+                        <td class="text-muted small">${item.contributions}</td>
+                    `;
+                    tableBody.appendChild(tr);
+                });
+            }
+
+            function updateView() {
+                let filtered = [...leaderboardData];
+                const dept = deptFilterSelect ? deptFilterSelect.value : 'All';
+                if (dept !== 'All') {
+                    filtered = filtered.filter(item => item.dept === dept);
+                }
+                filtered.sort((a, b) => b.points - a.points);
+                renderLeaderboard(filtered);
+            }
+
+            if (deptFilterSelect) deptFilterSelect.addEventListener('change', updateView);
+            renderLeaderboard(leaderboardData);
+        }
+
+        /* ==========================================================================
+           6. Events Filterable Module
+           ========================================================================== */
+
+        function initEventFilters() {
+            const filterBtns = document.querySelectorAll('[data-event-filter]');
+            const eventCards = document.querySelectorAll('.event-card-col');
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    const filter = btn.getAttribute('data-event-filter');
+
+                    eventCards.forEach(card => {
+                        const category = card.getAttribute('data-event-category');
+                        if (filter === 'all' || category === filter) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        }
+
+        /* ==========================================================================
+           7. Form Validations & Interactive Modals
+           ========================================================================== */
+
+        function initFormValidations() {
+            const membershipForm = document.getElementById('membershipForm');
+            if (membershipForm) {
+                membershipForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+
+                    const name = document.getElementById('memName').value.trim();
+                    const email = document.getElementById('memEmail').value.trim();
+                    const year = document.getElementById('memYear').value;
+                    const dept = document.getElementById('memDept').value;
+                    const reason = document.getElementById('memReason').value.trim();
+
+                    if (!name || !email || !year || !dept || !reason) {
+                        showToast("Please fill in all required fields.", "warning");
+                        return;
+                    }
+
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!emailRegex.test(email)) {
+                        showToast("Please enter a valid email address.", "danger");
+                        return;
+                    }
+
+                    showSuccessModal(
+                        "Membership Application Received!",
+                        `Thank you, <strong>${name}</strong>! Your application for the <strong>${dept} Department</strong> has been logged for review by the ANALYTIX core team.`
+                    );
+
+                    membershipForm.reset();
+                });
+            }
+
+            const eventRegForm = document.getElementById('eventRegistrationForm');
+            if (eventRegForm) {
+                eventRegForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const eventName = document.getElementById('modalEventTitle').textContent;
+                    const name = document.getElementById('eventRegName').value.trim();
+                    
+                    if (!name) {
+                        showToast("Please enter your name.", "warning");
+                        return;
+                    }
+
+                    const modalEl = document.getElementById('eventRegistrationModal');
+                    const modalInstance = bootstrap.Modal.getInstance(modalEl);
+                    if (modalInstance) modalInstance.hide();
+
+                    showSuccessModal(
+                        "Registration Confirmed!",
+                        `You have successfully registered <strong>${name}</strong> for <em>${eventName}</em>. Confirmation details have been sent to your email.`
+                    );
+
+                    eventRegForm.reset();
+                });
+            }
+
+            const challengeForm = document.getElementById('challengeSubmissionForm');
+            if (challengeForm) {
+                challengeForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const repoUrl = document.getElementById('challengeRepoUrl').value.trim();
+                    
+                    if (!repoUrl) {
+                        showToast("Please enter your project repository URL.", "warning");
+                        return;
+                    }
+
+                    const modalEl = document.getElementById('challengeSubmissionModal');
+                    const modalInstance = bootstrap.Modal.getInstance(modalEl);
+                    if (modalInstance) modalInstance.hide();
+
+                    showSuccessModal(
+                        "Solution Submitted!",
+                        `Your challenge submission has been logged successfully! Points will be updated on the leaderboard after peer evaluation.`
+                    );
+
+                    challengeForm.reset();
+                });
+            }
+        }
+
+        window.openEventRegistrationModal = function(eventTitle) {
+            const titleEl = document.getElementById('modalEventTitle');
+            if (titleEl) titleEl.textContent = eventTitle;
+            const modalEl = new bootstrap.Modal(document.getElementById('eventRegistrationModal'));
+            modalEl.show();
+        };
+
+        window.openChallengeModal = function(challengeTitle) {
+            const titleEl = document.getElementById('modalChallengeTitle');
+            if (titleEl) titleEl.textContent = challengeTitle;
+            const modalEl = new bootstrap.Modal(document.getElementById('challengeSubmissionModal'));
+            modalEl.show();
+        };
+
+        function showToast(message, type = "info") {
+            const toastContainer = document.getElementById('toastContainer');
+            if (!toastContainer) return;
+
+            const toastId = 'toast-' + Date.now();
+            const toastHTML = `
+                <div id="${toastId}" class="toast align-items-center text-bg-${type} border-0 show" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="d-flex">
+                        <div class="toast-body">
+                            ${message}
+                        </div>
+                        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                </div>
+            `;
+            toastContainer.insertAdjacentHTML('beforeend', toastHTML);
+
+            setTimeout(() => {
+                const el = document.getElementById(toastId);
+                if (el) el.remove();
+            }, 4000);
+        }
+
+        function showSuccessModal(title, messageHTML) {
+            const modalTitle = document.getElementById('successModalTitle');
+            const modalBody = document.getElementById('successModalBody');
+
+            if (modalTitle) modalTitle.textContent = title;
+            if (modalBody) modalBody.innerHTML = messageHTML;
+
+            const modalEl = new bootstrap.Modal(document.getElementById('successConfirmationModal'));
+            modalEl.show();
+        }
+
+        /* ==========================================================================
+           8. Back to Top Button
+           ========================================================================== */
+
+        function initBackToTop() {
+            const backBtn = document.getElementById('backToTopBtn');
+            if (!backBtn) return;
+
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 400) {
+                    backBtn.classList.add('visible');
+                } else {
+                    backBtn.classList.remove('visible');
+                }
+            }, { passive: true });
+
+            backBtn.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        }
+    </script>
+</body>
+</html>
