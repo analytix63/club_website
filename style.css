@@ -340,6 +340,18 @@ a {
     transform: translateY(-2px);
 }
 
+.site-credit {
+    margin: 16px 0 0;
+    color: var(--text-secondary, #94a3b8);
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.site-credit span {
+    color: #a879ff;
+    font-weight: 600;
+}
+
 /* ==========================================================================
    Navigation Bar
    ========================================================================== */
