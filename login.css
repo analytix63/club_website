@@ -1,0 +1,144 @@
+:root {
+    color-scheme: dark;
+    --bg: #090910;
+    --panel: #12121e;
+    --line: #29283b;
+    --text: #f5f3ff;
+    --muted: #a7a3bb;
+    --purple: #8954f6;
+    --cyan: #20b7dc;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+    display: grid;
+    place-items: center;
+    padding: 28px 16px;
+    background: radial-gradient(ellipse at 88% 12%, #302052 0, transparent 40%), var(--bg);
+    color: var(--text);
+    font-family: Inter, "Segoe UI", system-ui, sans-serif;
+}
+
+.login-shell {
+    width: min(560px, 100%);
+}
+
+.back-link {
+    display: inline-block;
+    margin-bottom: 18px;
+    color: #b9a0ff;
+    text-decoration: none;
+}
+
+.back-link:hover {
+    color: white;
+}
+
+.login-card {
+    padding: clamp(24px, 6vw, 40px);
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    background: rgb(18 18 30 / 94%);
+    box-shadow: 0 24px 80px rgb(0 0 0 / 45%);
+}
+
+.eyebrow {
+    margin: 0 0 10px;
+    color: #ae8dfc;
+    font-size: .76rem;
+    font-weight: 800;
+    letter-spacing: .16em;
+}
+
+h1 {
+    margin: 0;
+    font-size: clamp(2rem, 7vw, 2.8rem);
+    letter-spacing: -.045em;
+}
+
+.intro {
+    margin: 8px 0 26px;
+    color: var(--muted);
+}
+
+.login-options {
+    display: grid;
+    gap: 14px;
+}
+
+.option-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    min-height: 100px;
+    padding: 18px;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: #191827;
+    color: var(--text);
+    text-decoration: none;
+    transition: transform .18s ease, border-color .18s ease, background .18s ease;
+}
+
+.option-card:hover,
+.option-card:focus-visible {
+    transform: translateY(-2px);
+    border-color: #8954f6a8;
+    background: #201c34;
+    color: white;
+    outline: none;
+}
+
+.option-icon {
+    display: grid;
+    flex: 0 0 48px;
+    width: 48px;
+    height: 48px;
+    place-items: center;
+    border-radius: 14px;
+    background: linear-gradient(135deg, var(--cyan), var(--purple));
+    font-size: 1.35rem;
+}
+
+.option-copy {
+    display: grid;
+    gap: 5px;
+}
+
+.option-copy strong {
+    font-size: 1.05rem;
+}
+
+.option-copy span {
+    color: var(--muted);
+    font-size: .9rem;
+    line-height: 1.4;
+}
+
+.arrow {
+    margin-left: auto;
+    color: #ae8dfc;
+    font-size: 1.35rem;
+}
+
+.security-note {
+    margin: 20px 0 0;
+    color: var(--muted);
+    font-size: .82rem;
+    text-align: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition: none !important;
+    }
+}
