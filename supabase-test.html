@@ -1,0 +1,46 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Supabase Connection Test</title>
+</head>
+<body>
+  <h2>ANALYTIX — Supabase Test</h2>
+  <p id="result">Testing connection...</p>
+
+  <script>
+    const SUPABASE_URL = "https://ntwayeltgeqdjbcjnchc.supabase.co";
+    const SUPABASE_KEY = "sb_publishable_YlLf32QTY7LnU7k9_2J_Wg_yMc3OBCv";
+
+    async function testConnection() {
+      const result = document.getElementById("result");
+
+      try {
+        const response = await fetch(
+          `${SUPABASE_URL}/auth/v1/health`,
+          {
+            headers: {
+              apikey: SUPABASE_KEY
+            }
+          }
+        );
+
+        if (response.ok) {
+          result.textContent =
+            "Connected! Supabase Auth is responding.";
+        } else {
+          result.textContent =
+            `Supabase responded with HTTP ${response.status}. Check configuration.`;
+        }
+      } catch (error) {
+        result.textContent =
+          "Connection failed. Check the project URL and network.";
+        console.error(error);
+      }
+    }
+
+    testConnection();
+  </script>
+</body>
+</html>

@@ -1,0 +1,650 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ANALYTIX | Member Account</title>
+  <style>
+    * { box-sizing: border-box; }
+    [hidden] { display: none !important; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      padding: 22px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: #f5f3ff;
+      background:
+        radial-gradient(ellipse at 15% 15%, #352064, transparent 45%),
+        radial-gradient(ellipse at 85% 85%, #162d58, transparent 45%),
+        #090b18;
+    }
+
+    .container { width: 100%; max-width: 760px; margin: 0 auto; }
+    .brand { text-align: center; margin: 12px 0 25px; }
+    .brand h1 { font-size: 32px; letter-spacing: 3px; color: #c4b5fd; margin: 0 0 8px; }
+    .brand p, .subtitle { color: #aaaac4; line-height: 1.5; }
+    .card {
+      background: rgba(20,23,43,.96);
+      padding: 28px;
+      border: 1px solid #343653;
+      border-radius: 22px;
+      box-shadow: 0 20px 70px #0005;
+    }
+    .auth-card { max-width: 440px; margin: 0 auto; }
+    .tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding: 4px;
+      gap: 4px;
+      border-radius: 12px;
+      background: #111426;
+      margin-bottom: 24px;
+    }
+    button { font: inherit; cursor: pointer; }
+    .tabs button {
+      border: 0;
+      padding: 11px 8px;
+      border-radius: 9px;
+      background: transparent;
+      color: #b8b8ce;
+    }
+    .tabs button.active {
+      color: white;
+      background: #302454;
+      box-shadow: inset 0 0 0 1px #6d50b5;
+      font-weight: 600;
+    }
+    h2 { font-size: 24px; margin: 0 0 8px; }
+    .subtitle { font-size: 14px; margin: 0 0 22px; }
+    form { display: grid; gap: 16px; }
+    label { display: block; min-width: 0; font-size: 14px; font-weight: 600; }
+    input, textarea {
+      display: block;
+      width: 100%;
+      padding: 13px 14px;
+      margin-top: 8px;
+      border: 1px solid #3b3e5b;
+      border-radius: 11px;
+      font: inherit;
+      background: #101326;
+      color: white;
+    }
+    input:focus, textarea:focus {
+      outline: 2px solid #a78bfa;
+      outline-offset: 1px;
+    }
+    textarea { min-height: 100px; resize: vertical; }
+    .primary {
+      width: 100%;
+      border: 0;
+      border-radius: 11px;
+      padding: 13px 16px;
+      background: linear-gradient(100deg,#7c3aed,#6366f1);
+      color: white;
+      font-weight: 600;
+      margin-top: 3px;
+    }
+    .primary:hover { filter: brightness(1.12); }
+    .secondary {
+      border: 1px solid #494365;
+      border-radius: 11px;
+      padding: 13px 16px;
+      background: #17182b;
+      color: white;
+    }
+    button:disabled { opacity: .6; cursor: not-allowed; }
+    a { color: #c4b5fd; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .forgot { text-align: right; margin: 0; font-size: 14px; }
+    .message { font-size: 14px; line-height: 1.6; overflow-wrap: anywhere; margin: 16px 0 0; }
+    .error { color: #fca5a5; }
+    .success { color: #86efac; }
+    .info { color: #c4b5fd; }
+    .footer { text-align: center; margin-top: 22px; font-size: 13px; color: #aaaac4; }
+    .profile-header { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
+    .profile-avatar {
+      width: 68px;
+      height: 68px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: linear-gradient(135deg,#7c3aed,#6366f1);
+      color: white;
+      font-size: 25px;
+      font-weight: 700;
+    }
+    .profile-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .profile-details { color: #aaaac4; font-size: 14px; overflow-wrap: anywhere; }
+    .profile-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 16px; }
+    .full-width { grid-column: 1 / -1; }
+    .profile-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
+    .profile-actions button { flex: 1; min-width: 140px; }
+
+    @media (max-width: 520px) {
+      body { padding: 16px; }
+      .card { padding: 22px; }
+      .profile-grid { grid-template-columns: 1fr; }
+      .full-width { grid-column: auto; }
+    }
+  </style>
+</head>
+<body>
+<main class="container">
+  <header class="brand">
+    <h1>ANALYTIX</h1>
+    <p>Your club. Your community. Your next opportunity.</p>
+  </header>
+
+  <section class="card auth-card" id="authCard">
+    <div class="tabs" id="tabs">
+      <button type="button" id="signInTab" class="active">Sign In</button>
+      <button type="button" id="signUpTab">Create Account</button>
+    </div>
+
+    <section id="signInPanel">
+      <h2>Welcome back</h2>
+      <p class="subtitle">Sign in to your ANALYTIX member account.</p>
+      <form id="signInForm">
+        <label>Email address
+          <input id="signInEmail" type="email" autocomplete="email" required>
+        </label>
+        <label>Password
+          <input id="signInPassword" type="password" autocomplete="current-password" required>
+        </label>
+        <p class="forgot"><a href="#" id="forgotLink">Forgot password?</a></p>
+        <button class="primary" type="submit">Sign In</button>
+      </form>
+    </section>
+
+    <section id="signUpPanel" hidden>
+      <h2>Join ANALYTIX</h2>
+      <p class="subtitle">Create your member account.</p>
+      <form id="signUpForm">
+        <label>Full name
+          <input id="fullName" type="text" maxlength="100" autocomplete="name" required>
+        </label>
+        <label>Email address
+          <input id="signUpEmail" type="email" autocomplete="email" required>
+        </label>
+        <label>Password (at least 8 characters)
+          <input id="signUpPassword" type="password" minlength="8" autocomplete="new-password" required>
+        </label>
+        <label>Confirm password
+          <input id="confirmPassword" type="password" minlength="8" autocomplete="new-password" required>
+        </label>
+        <button class="primary" type="submit">Create Account</button>
+      </form>
+    </section>
+
+    <section id="forgotPanel" hidden>
+      <h2>Reset your password</h2>
+      <p class="subtitle">We'll email you a secure password-reset link.</p>
+      <form id="forgotForm">
+        <label>Email address
+          <input id="forgotEmail" type="email" autocomplete="email" required>
+        </label>
+        <button class="primary" type="submit">Send Reset Link</button>
+        <button class="secondary" id="backToSignIn" type="button">Back to Sign In</button>
+      </form>
+    </section>
+
+    <section id="resetPanel" hidden>
+      <h2>Choose a new password</h2>
+      <p class="subtitle">Enter your new password below.</p>
+      <form id="resetForm">
+        <label>New password
+          <input id="newPassword" type="password" minlength="8" autocomplete="new-password" required>
+        </label>
+        <label>Confirm new password
+          <input id="confirmNewPassword" type="password" minlength="8" autocomplete="new-password" required>
+        </label>
+        <button class="primary" type="submit">Update Password</button>
+      </form>
+    </section>
+
+    <p id="authMessage" class="message" role="status" aria-live="polite"></p>
+  </section>
+
+  <section class="card" id="accountPanel" hidden>
+    <div class="profile-header">
+      <div class="profile-avatar" id="profileAvatar">A</div>
+      <div>
+        <h2 id="welcomeMessage">Loading your profile...</h2>
+        <p class="profile-details" id="memberEmail"></p>
+        <p class="profile-details">ANALYTIX Member</p>
+      </div>
+    </div>
+
+    <div id="profileView">
+      <h2>Your Profile</h2>
+      <p class="subtitle">Your member information from Supabase.</p>
+      <div class="profile-grid">
+        <label>Full name<input id="viewFullName" readonly></label>
+        <label>Department<input id="viewDepartment" readonly></label>
+        <label>Course<input id="viewCourse" readonly></label>
+        <label>Graduation year<input id="viewGraduationYear" readonly></label>
+        <label class="full-width">Headline<input id="viewHeadline" readonly></label>
+        <label class="full-width">Location<input id="viewLocation" readonly></label>
+        <label class="full-width">Bio<textarea id="viewBio" readonly></textarea></label>
+        <label class="full-width">LinkedIn URL<input id="viewLinkedin" readonly></label>
+        <label class="full-width">GitHub URL<input id="viewGithub" readonly></label>
+        <label class="full-width">Profile image URL<input id="viewAvatarUrl" readonly></label>
+      </div>
+      <div class="profile-actions">
+        <button class="primary" id="editProfileButton" type="button">Edit Profile</button>
+        <button class="secondary" id="signOutButton" type="button">Sign Out</button>
+      </div>
+    </div>
+
+    <div id="profileEdit" hidden>
+      <h2>Edit Profile</h2>
+      <p class="subtitle">Update your information and save your changes.</p>
+      <form id="profileForm">
+        <div class="profile-grid">
+          <label>Full name<input id="editFullName" maxlength="100" required></label>
+          <label>Department<input id="editDepartment" maxlength="100"></label>
+          <label>Course<input id="editCourse" maxlength="100"></label>
+          <label>Graduation year<input id="editGraduationYear" type="number" min="1900" max="2200" step="1"></label>
+          <label class="full-width">Headline<input id="editHeadline" maxlength="160" placeholder="e.g. Data Analytics Student"></label>
+          <label class="full-width">Location<input id="editLocation" maxlength="150"></label>
+          <label class="full-width">Bio<textarea id="editBio" maxlength="1000" placeholder="Tell the ANALYTIX community about yourself"></textarea></label>
+          <label class="full-width">LinkedIn URL<input id="editLinkedin" type="url" placeholder="https://www.linkedin.com/in/your-profile"></label>
+          <label class="full-width">GitHub URL<input id="editGithub" type="url" placeholder="https://github.com/your-username"></label>
+          <label class="full-width">Profile image URL<input id="editAvatarUrl" type="url" placeholder="https://example.com/photo.jpg"></label>
+        </div>
+        <div class="profile-actions">
+          <button class="primary" id="saveProfileButton" type="submit">Save Changes</button>
+          <button class="secondary" id="cancelEditButton" type="button">Cancel</button>
+        </div>
+      </form>
+    </div>
+    <p id="profileMessage" class="message" role="status" aria-live="polite"></p>
+  </section>
+
+  <footer class="footer">
+    <a href="../login.html">← Back to login options</a>
+  </footer>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  // Replace these two placeholders with the values from your existing working file.
+  // Use only your Project URL and publishable key, never a service_role/secret key.
+  const SUPABASE_URL = "https://ntwayeltgeqdjbcjnchc.supabase.co";
+  const SUPABASE_KEY = "sb_publishable_YlLf32QTY7LnU7k9_2J_Wg_yMc3OBCv";
+
+  const $ = id => document.getElementById(id);
+  const authCard = $("authCard");
+  const accountPanel = $("accountPanel");
+  const authMessage = $("authMessage");
+
+  let client = null;
+  let recoveryMode = false;
+  let currentUser = null;
+  let originalProfile = {};
+
+  const profileFields = [
+    ["full_name", "editFullName", "viewFullName"],
+    ["department", "editDepartment", "viewDepartment"],
+    ["course", "editCourse", "viewCourse"],
+    ["graduation_year", "editGraduationYear", "viewGraduationYear"],
+    ["headline", "editHeadline", "viewHeadline"],
+    ["location", "editLocation", "viewLocation"],
+    ["bio", "editBio", "viewBio"],
+    ["linkedin_url", "editLinkedin", "viewLinkedin"],
+    ["github_url", "editGithub", "viewGithub"],
+    ["avatar_url", "editAvatarUrl", "viewAvatarUrl"]
+  ];
+
+  function getClient() {
+    if (client) return client;
+    if (SUPABASE_URL.includes("PASTE_YOUR_") || SUPABASE_KEY.includes("PASTE_YOUR_")) {
+      throw new Error("Add your existing Supabase Project URL and publishable key in the settings near the bottom of this file.");
+    }
+    if (!window.supabase?.createClient) {
+      throw new Error("Supabase library failed to load. Check your internet connection.");
+    }
+    client = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    return client;
+  }
+
+  function message(text, type = "info") {
+    authMessage.textContent = text;
+    authMessage.className = "message " + type;
+  }
+
+  function profileMessage(text, type = "info") {
+    $("profileMessage").textContent = text;
+    $("profileMessage").className = "message " + type;
+  }
+
+  function showPanel(name) {
+    ["signInPanel", "signUpPanel", "forgotPanel", "resetPanel"].forEach(id => {
+      $(id).hidden = id !== name;
+    });
+    $("tabs").hidden = name === "forgotPanel" || name === "resetPanel";
+    $("signInTab").classList.toggle("active", name === "signInPanel");
+    $("signUpTab").classList.toggle("active", name === "signUpPanel");
+    message("");
+  }
+
+  function busy(form, on, text = "Please wait...") {
+    const button = form.querySelector('button[type="submit"]');
+    if (!button) return;
+    if (on) {
+      if (!button.dataset.original) button.dataset.original = button.textContent;
+      button.textContent = text;
+    } else {
+      button.textContent = button.dataset.original || button.textContent;
+    }
+    button.disabled = on;
+  }
+
+  function renderProfile(profile) {
+    originalProfile = profile || {};
+    for (const [field, editId, viewId] of profileFields) {
+      const value = originalProfile[field] ?? "";
+      $(editId).value = value;
+      $(viewId).value = value;
+    }
+
+    const fullName = originalProfile.full_name || "ANALYTIX Member";
+    $("welcomeMessage").textContent = "Welcome, " + fullName + "!";
+    $("memberEmail").textContent = currentUser?.email || "";
+
+    const avatar = $("profileAvatar");
+    avatar.replaceChildren();
+
+    if (originalProfile.avatar_url) {
+      const img = document.createElement("img");
+      img.src = originalProfile.avatar_url;
+      img.alt = "Profile picture";
+      img.referrerPolicy = "no-referrer";
+      img.onerror = () => {
+        avatar.textContent = fullName.charAt(0).toUpperCase();
+      };
+      avatar.appendChild(img);
+    } else {
+      avatar.textContent = fullName.charAt(0).toUpperCase();
+    }
+  }
+
+  async function loadProfile(user) {
+    currentUser = user;
+    profileMessage("Loading your profile...", "info");
+    try {
+      const { data, error } = await getClient()
+        .from("profiles")
+        .select("id, full_name, email, department, course, graduation_year, headline, location, bio, avatar_url, linkedin_url, github_url")
+        .eq("id", user.id)
+        .single();
+
+      if (error) throw error;
+      renderProfile(data);
+      profileMessage("Your profile is up to date.", "success");
+    } catch (error) {
+      console.error("Profile loading error:", error);
+      profileMessage("Could not load your profile: " + error.message, "error");
+    }
+  }
+
+  function signedIn(user) {
+    authCard.hidden = true;
+    accountPanel.hidden = false;
+    $("profileView").hidden = false;
+    $("profileEdit").hidden = true;
+    currentUser = user;
+    $("welcomeMessage").textContent = "Loading your profile...";
+    $("memberEmail").textContent = user.email || "";
+    loadProfile(user);
+  }
+
+  function signedOut() {
+    currentUser = null;
+    originalProfile = {};
+    accountPanel.hidden = true;
+    authCard.hidden = false;
+  }
+
+  $("signInTab").addEventListener("click", () => showPanel("signInPanel"));
+  $("signUpTab").addEventListener("click", () => showPanel("signUpPanel"));
+
+  $("forgotLink").addEventListener("click", event => {
+    event.preventDefault();
+    $("forgotEmail").value = $("signInEmail").value.trim();
+    showPanel("forgotPanel");
+  });
+
+  $("backToSignIn").addEventListener("click", () => showPanel("signInPanel"));
+
+  $("signInForm").addEventListener("submit", async event => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    busy(form, true, "Signing in...");
+    message("");
+    try {
+      const { data, error } = await getClient().auth.signInWithPassword({
+        email: $("signInEmail").value.trim(),
+        password: $("signInPassword").value
+      });
+      if (error) throw error;
+      if (data.user) signedIn(data.user);
+    } catch (error) {
+      message(error.message || "Unable to sign in.", "error");
+    } finally {
+      busy(form, false);
+    }
+  });
+
+  $("signUpForm").addEventListener("submit", async event => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const password = $("signUpPassword").value;
+
+    if (password.length < 8) {
+      message("Use at least 8 characters for your password.", "error");
+      return;
+    }
+    if (password !== $("confirmPassword").value) {
+      message("Passwords do not match.", "error");
+      return;
+    }
+
+    busy(form, true, "Creating account...");
+    message("");
+    try {
+      const { data, error } = await getClient().auth.signUp({
+        email: $("signUpEmail").value.trim(),
+        password,
+        options: { data: { full_name: $("fullName").value.trim() } }
+      });
+      if (error) throw error;
+
+      if (data.session && data.user) {
+        signedIn(data.user);
+      } else {
+        showPanel("signInPanel");
+        message("Account created. Check your email for a confirmation link, then sign in.", "success");
+      }
+    } catch (error) {
+      message(error.message || "Unable to create account.", "error");
+    } finally {
+      busy(form, false);
+    }
+  });
+
+  $("forgotForm").addEventListener("submit", async event => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    busy(form, true, "Sending email...");
+    message("");
+    try {
+      const email = $("forgotEmail").value.trim();
+      const redirectTo = window.location.origin + window.location.pathname;
+      const { error } = await getClient().auth.resetPasswordForEmail(email, { redirectTo });
+      if (error) throw error;
+      message("If this email is registered, a reset link will be sent. Check your inbox and spam folder.", "success");
+    } catch (error) {
+      message(error.message || "Unable to request a reset link.", "error");
+    } finally {
+      busy(form, false);
+    }
+  });
+
+  $("resetForm").addEventListener("submit", async event => {
+    event.preventDefault();
+    if (!recoveryMode) {
+      message("Open the password-reset link from your email first.", "error");
+      return;
+    }
+
+    const password = $("newPassword").value;
+    if (password.length < 8) {
+      message("Use at least 8 characters for your password.", "error");
+      return;
+    }
+    if (password !== $("confirmNewPassword").value) {
+      message("Passwords do not match.", "error");
+      return;
+    }
+
+    const form = event.currentTarget;
+    busy(form, true, "Updating password...");
+    try {
+      const { error } = await getClient().auth.updateUser({ password });
+      if (error) throw error;
+      recoveryMode = false;
+      await getClient().auth.signOut();
+      showPanel("signInPanel");
+      message("Password updated successfully. You can now sign in with your new password.", "success");
+    } catch (error) {
+      message(error.message || "Unable to update password.", "error");
+    } finally {
+      busy(form, false);
+    }
+  });
+
+  $("editProfileButton").addEventListener("click", () => {
+    $("profileView").hidden = true;
+    $("profileEdit").hidden = false;
+    profileMessage("");
+  });
+
+  $("cancelEditButton").addEventListener("click", () => {
+    renderProfile(originalProfile);
+    $("profileEdit").hidden = true;
+    $("profileView").hidden = false;
+    profileMessage("");
+  });
+
+  $("profileForm").addEventListener("submit", async event => {
+    event.preventDefault();
+    if (!currentUser) {
+      profileMessage("Please sign in again.", "error");
+      return;
+    }
+
+    const button = $("saveProfileButton");
+    button.disabled = true;
+    button.textContent = "Saving...";
+    profileMessage("");
+
+    try {
+      const updates = {};
+      for (const [field, editId] of profileFields) {
+        const rawValue = $(editId).value.trim();
+
+        if (field === "graduation_year") {
+          if (!rawValue) {
+            updates[field] = null;
+          } else {
+            const year = Number(rawValue);
+            if (!Number.isInteger(year) || year < 1900 || year > 2200) {
+              throw new Error("Enter a valid graduation year.");
+            }
+            updates[field] = year;
+          }
+        } else {
+          updates[field] = rawValue || null;
+        }
+      }
+
+      const { data, error } = await getClient()
+        .from("profiles")
+        .update({ ...updates, updated_at: new Date().toISOString() })
+        .eq("id", currentUser.id)
+        .select("id, full_name, email, department, course, graduation_year, headline, location, bio, avatar_url, linkedin_url, github_url")
+        .single();
+
+      if (error) throw error;
+
+      renderProfile(data);
+      $("profileEdit").hidden = true;
+      $("profileView").hidden = false;
+      profileMessage("Profile saved successfully!", "success");
+    } catch (error) {
+      console.error("Profile save error:", error);
+      profileMessage("Could not save your profile: " + error.message, "error");
+    } finally {
+      button.disabled = false;
+      button.textContent = "Save Changes";
+    }
+  });
+
+  $("signOutButton").addEventListener("click", async () => {
+    const button = $("signOutButton");
+    button.disabled = true;
+    try {
+      const { error } = await getClient().auth.signOut();
+      if (error) throw error;
+      signedOut();
+      showPanel("signInPanel");
+      message("You have signed out successfully.", "success");
+    } catch (error) {
+      $("welcomeMessage").textContent = error.message || "Unable to sign out.";
+    } finally {
+      button.disabled = false;
+    }
+  });
+
+  async function initialize() {
+    try {
+      const supabase = getClient();
+      const params = new URLSearchParams(window.location.hash.slice(1));
+
+      if (params.get("type") === "recovery") {
+        recoveryMode = true;
+        showPanel("resetPanel");
+        message("Enter a new password for your account.", "info");
+      }
+
+      const { data, error } = await supabase.auth.getSession();
+      if (error) throw error;
+      if (data.session?.user && !recoveryMode) signedIn(data.session.user);
+
+      supabase.auth.onAuthStateChange((event, session) => {
+        if (event === "PASSWORD_RECOVERY") {
+          recoveryMode = true;
+          signedOut();
+          showPanel("resetPanel");
+          message("Enter a new password for your account.", "info");
+        } else if (event === "SIGNED_IN" && session?.user && !recoveryMode) {
+          signedIn(session.user);
+        } else if (event === "SIGNED_OUT") {
+          signedOut();
+        }
+      });
+    } catch (error) {
+      message(error.message || "Could not initialize authentication.", "error");
+    }
+  }
+
+  initialize();
+</script>
+</body>
+</html>
